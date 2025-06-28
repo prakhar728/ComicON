@@ -11,6 +11,9 @@ importers:
       '@neynar/nodejs-sdk':
         specifier: ^2.46.0
         version: 2.46.0
+      '@zoralabs/coins-sdk':
+        specifier: ^0.2.4
+        version: 0.2.4(abitype@1.0.8)(viem@2.31.4)
       axios:
         specifier: ^1.10.0
         version: 1.10.0
@@ -26,6 +29,9 @@ importers:
       nodemon:
         specifier: ^3.1.10
         version: 3.1.10
+      viem:
+        specifier: ^2.31.4
+        version: 2.31.4
 
 packages:
 
@@ -35,6 +41,10 @@ packages:
   '@babel/runtime@7.27.6':
     resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
     engines: {node: '>=6.9.0'}
+
+  '@hey-api/client-fetch@0.8.4':
+    resolution: {integrity: sha512-SWtUjVEFIUdiJGR2NiuF0njsSrSdTe7WHWkp3BLH3DEl2bRhiflOnBo29NSDdrY90hjtTQiTQkBxUgGOF29Xzg==}
+    deprecated: Starting with v0.73.0, this package is bundled directly inside @hey-api/openapi-ts.
 
   '@isaacs/balanced-match@4.0.1':
     resolution: {integrity: sha512-yzMTt9lEb8Gv7zRioUilSglI0c0smZ9k5D65677DLWLtWJaXIS3CqcGyUFByYKlnUj6TkjLVs54fBl6+TiGQDQ==}
@@ -139,6 +149,16 @@ packages:
 
   '@tootallnate/quickjs-emscripten@0.23.0':
     resolution: {integrity: sha512-C5Mc6rdnsaJDjO3UpGW/CQTHtCKaYlScZTly4JIu97Jxo/odCiH0ITnDXSJPTOrEKk/ycSZ0AOgTmkDtkOsvIA==}
+
+  '@zoralabs/coins-sdk@0.2.4':
+    resolution: {integrity: sha512-CAyC3CG8L6ckx2BtacziyKeg2/96qje32aH7u94UdUAiigXe8ovmwvKxud5KSfdozv1u2TH4OLvXbm5zd8GQJg==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      abitype: ^1.0.8
+      viem: ^2.21.55
+
+  '@zoralabs/protocol-deployments@0.6.1':
+    resolution: {integrity: sha512-iDO5EhLrqDw0keudRq9omuSdvHG852de5/apY2p7QLBDxitQuJ/6/jOaq2WB4B6GPVUh2fTd5+CdoSsbJhJv5g==}
 
   abitype@1.0.8:
     resolution: {integrity: sha512-ZeiI6h3GnW06uYDLx0etQtX/p8E24UaHHBj57RSjK7YBFe7iuVn07EDpOeP451D06sF27VOz9JJPlIKJmXgkEg==}
@@ -951,6 +971,8 @@ snapshots:
 
   '@babel/runtime@7.27.6': {}
 
+  '@hey-api/client-fetch@0.8.4': {}
+
   '@isaacs/balanced-match@4.0.1': {}
 
   '@isaacs/brace-expansion@5.0.0':
@@ -1091,6 +1113,15 @@ snapshots:
   '@tokenizer/token@0.3.0': {}
 
   '@tootallnate/quickjs-emscripten@0.23.0': {}
+
+  '@zoralabs/coins-sdk@0.2.4(abitype@1.0.8)(viem@2.31.4)':
+    dependencies:
+      '@hey-api/client-fetch': 0.8.4
+      '@zoralabs/protocol-deployments': 0.6.1
+      abitype: 1.0.8
+      viem: 2.31.4
+
+  '@zoralabs/protocol-deployments@0.6.1': {}
 
   abitype@1.0.8: {}
 

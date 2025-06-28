@@ -12,10 +12,12 @@
   "packageManager": "pnpm@10.11.1",
   "dependencies": {
     "@neynar/nodejs-sdk": "^2.46.0",
+    "@zoralabs/coins-sdk": "^0.2.4",
     "axios": "^1.10.0",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "node-cron": "^4.1.1",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "viem": "^2.31.4"
   }
 }
