@@ -1,0 +1,104 @@
+{
+    "cast": {
+        "object": "cast",
+        "hash": "0x2b536714e8adc665a90b9c06ffd3c9049ef65011",
+        "author": {
+            "object": "user",
+            "fid": 400192,
+            "username": "fiatisabubble",
+            "display_name": "Mr Potato",
+            "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/bcc6f5af-1594-4971-7620-42aefe36e700/original",
+            "custody_address": "0x6fca14ff5ef731536febacfcdade429577008824",
+            "profile": {
+                "bio": {
+                    "text": "Building Web3 Communities | Spud Brand Ambassador\n\n_fiatisabubble.twitter"
+                }
+            },
+            "follower_count": 212,
+            "following_count": 197,
+            "verifications": [
+                "0x92c9d3836f9f503355f234dec846b65786ab07be",
+                "0x784f03f47de34890f7b0ad15e6d182197134b76c"
+            ],
+            "verified_addresses": {
+                "eth_addresses": [
+                    "0x92c9d3836f9f503355f234dec846b65786ab07be",
+                    "0x784f03f47de34890f7b0ad15e6d182197134b76c"
+                ],
+                "sol_addresses": [
+                    "DWhiuqryW8P985kdt4iPSJeFSSSHD97AJQ9TfA6CkJiu"
+                ],
+                "primary": {
+                    "eth_address": "0x784f03f47de34890f7b0ad15e6d182197134b76c",
+                    "sol_address": "DWhiuqryW8P985kdt4iPSJeFSSSHD97AJQ9TfA6CkJiu"
+                }
+            },
+            "verified_accounts": [
+                {
+                    "platform": "x",
+                    "username": "_fiatisabubble"
+                }
+            ],
+            "power_badge": true,
+            "experimental": {
+                "neynar_user_score": 0.95,
+                "deprecation_notice": "The `neynar_user_score` field under `experimental` will be deprecated after June 1, 2025, as it will be formally promoted to a stable field named `score` within the user object."
+            },
+            "score": 0.95
+        },
+        "app": {
+            "object": "user_dehydrated",
+            "fid": 20364,
+            "username": "0xppl",
+            "display_name": "0xppl",
+            "pfp_url": "https://imagedelivery.net/BXluQx4ige9GuW0Ia56BHw/0377b14e-2478-4686-a273-babf79191e00/rectcrop3",
+            "custody_address": "0xc49d93feb29afcd1b85fa63ffa624963d8873b8c"
+        },
+        "thread_hash": "0x2b536714e8adc665a90b9c06ffd3c9049ef65011",
+        "parent_hash": null,
+        "parent_url": "https://warpcast.com/~/channel/desi",
+        "root_parent_url": "https://warpcast.com/~/channel/desi",
+        "parent_author": {
+            "fid": null
+        },
+        "text": "After watching Sitaare Zameen Par, came home to watch Altcoins Zameen Par on CoinMarketCap 😭\n",
+        "timestamp": "2025-06-22T01:15:49.000Z",
+        "embeds": [
+            {
+                "url": "https://d43skd0e52j71.cloudfront.net/images/f7945527aa4a4afdaa24a318a04a86a3.png",
+                "metadata": {
+                    "content_type": "image/png",
+                    "content_length": 3168625,
+                    "_status": "RESOLVED",
+                    "image": {
+                        "width_px": 1536,
+                        "height_px": 834
+                    }
+                }
+            }
+        ],
+        "channel": {
+            "object": "channel_dehydrated",
+            "id": "desi",
+            "name": "desi",
+            "image_url": "https://i.imgur.com/uOjBxOA.jpg"
+        },
+        "reactions": {
+            "likes_count": 4,
+            "recasts_count": 1,
+            "likes": [],
+            "recasts": []
+        },
+        "replies": {
+            "count": 2
+        },
+        "mentioned_profiles": [],
+        "mentioned_profiles_ranges": [],
+        "mentioned_channels": [],
+        "mentioned_channels_ranges": [],
+        "author_channel_context": {
+            "role": "member",
+            "following": true
+        }
+    }
+}

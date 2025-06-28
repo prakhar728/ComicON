@@ -2,6 +2,7 @@
 import { NeynarAPIClient, Configuration } from "@neynar/nodejs-sdk";
 import dotenv from "dotenv";
 import logger from "../utils/logger.js";
+import { CastParamType } from "@neynar/nodejs-sdk/build/api/index.js";
 
 dotenv.config();
 
@@ -10,47 +11,75 @@ const config = new Configuration({
 });
 const client = new NeynarAPIClient(config);
 
-// Your bot FID (set this in .env or hardcode)
-const BOT_FID = parseInt(process.env.BOT_FID); // e.g., 12345
-
-console.log(BOT_FID);
+const BOT_FID = parseInt(process.env.BOT_FID);
 
 /**
- * Get new mentions of the bot (cast where the bot is mentioned)
- * @param {number} fid - Bot's FID
- * @param {number} limit - Number of notifications to fetch
- * @returns {Array<Object>} Array of relevant cast objects
+ * Reply to a cast on Farcaster
+ * @param {string} signerUuid - Your approved signer UUID
+ * @param {string} replyText - The text content of your reply
+ * @param {string} parentCastHash - Hash of the cast you're replying to
+ * @param {number} parentAuthorFid - FID of the original cast author
+ * @returns {Promise} - The published cast response
  */
-export async function getBotMentions(fid = BOT_FID, limit = 20) {
+export async function fetchCast(hash) {
   try {
-    const { notifications } = await client.fetchAllNotifications({
-      fid,
-      type: ["mentions"],
-      limit,
+    const cast = await client.lookupCastByHashOrWarpcastUrl({
+      identifier: hash,
+      type: CastParamType.Hash
+    });
+    
+    console.log(cast);
+    
+    return cast;
+  } catch (error) {
+    console.error("Error publishing reply:", error);
+    throw error;
+  }
+}
+
+
+/**
+ * Reply to a cast on Farcaster
+ * @param {string} signerUuid - Your approved signer UUID
+ * @param {string} replyText - The text content of your reply
+ * @param {string} parentCastHash - Hash of the cast you're replying to
+ * @param {number} parentAuthorFid - FID of the original cast author
+ * @returns {Promise} - The published cast response
+ */
+export async function replyToCast(signerUuid, replyText, parentCastHash, parentAuthorFid) {
+  try {
+    const response = await client.publishCast({
+      signerUuid: signerUuid,
+      text: replyText,
+      parent: parentCastHash,           // The cast hash you're replying to
+      parentAuthorFid: parentAuthorFid // FID of the original cast author
     });
 
-    const mentions = notifications
-      .filter(
-        (notif) =>
-          notif.type === "mention" &&
-          notif.cast &&
-          notif.cast.mentioned_profiles.some((p) => p.fid === fid)
-      )
-      .map((notif) => ({
-        id: notif.cast.hash, // Unique cast ID
-        text: notif.cast.text,
-        author: notif.cast.author,
-        raw: notif.cast,
-      }));
-
-    logger.info(`Fetched ${mentions.length} mentions of bot.`);
-    logger.debug(mentions);
-    return mentions;
-  } catch (err) {
-    console.log(err);
+    console.log("Reply published successfully!");
+    console.log("Cast hash:", response.cast.hash);
+    console.log("Author:", response.cast.author.username);
+    console.log("Text:", response.cast.text);
     
-    logger.error("Error fetching bot mentions:", err.message);
-    return [];
+    return response;
+  } catch (error) {
+    console.error("Error publishing reply:", error);
+    throw error;
+  }
+}
+
+export async function createSigner() {
+  try {
+    const signer = await client.createSigner();
+    console.log("Signer created:", signer);
+    console.log("Approval URL:", signer.signer_approval_url);
+    
+    // User needs to visit the approval URL to authorize the signer
+    // This will show a QR code or link to approve in Warpcast
+    console.log(signer);
+    
+    return signer;
+  } catch (error) {
+    console.error("Error creating signer:", error);
   }
 }
 

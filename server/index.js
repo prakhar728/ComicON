@@ -1,31 +1,29 @@
-// index.js
-import dotenv from "dotenv";
-import cron from "node-cron";
-import { pollMentions } from "./jobs/pollMentions.js";
-import logger from "./utils/logger.js";
+import express from 'express';
+import dotenv from 'dotenv';
+import { handleWebhook } from './services/webhookHandler.js';
 
-// Load environment variables
 dotenv.config();
 
-// Log startup
-logger.info("🤖 Bot server starting...");
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Run poll once on startup
-pollMentions();
+// Middleware
+app.use(express.json()); // Parse JSON bodies
 
-// Schedule polling every 30 seconds
-cron.schedule("*/30 * * * * *", () => {
-  logger.info("⏳ Scheduled poll triggered...");
-  pollMentions();
+// CORS
+app.use(cors());
+
+// Webhook endpoint
+app.post('/webhook', async (req, res) => {
+  try {
+    await handleWebhook(req.body);
+    res.status(200).send('Webhook received');
+  } catch (err) {
+    console.error('❌ Webhook error:', err.message);
+    res.status(400).send('Invalid request');
+  }
 });
 
-// Handle graceful shutdown
-process.on("SIGINT", () => {
-  logger.info("🛑 Bot shutting down (SIGINT)...");
-  process.exit();
-});
-
-process.on("SIGTERM", () => {
-  logger.info("🛑 Bot shutting down (SIGTERM)...");
-  process.exit();
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
