@@ -1,1 +1,9 @@
 # ComicOn
+For testing run 
+
+```
+curl -X POST http://localhost:3000/webhook \
+  -H "Content-Type: application/json" \
+  -d ''
+
+``` from your bash and it would reply to https://farcaster.xyz/par-t/0x60677789 
