@@ -1,6 +1,5 @@
-import { saveToFile } from '../utils/fileStore.js';
-import { fetchCast } from './neynar.js';
-import { createZoraCoin } from './zora.js';
+import { fetchCast } from '../lib/neynar.js';
+import { createZoraCoin } from '../lib/zora.js';
 
 export async function handleWebhook(event) {
     if (!event || typeof event !== 'object') {
@@ -16,13 +15,10 @@ export async function handleWebhook(event) {
             await handleCastCreated(data);
             break;
 
-        // Add more case handlers for other types if needed
         default:
             console.warn(`⚠️ Unsupported event type: ${type}`);
     }
 
-    // Save raw event to file
-    await saveToFile(event);
 }
 
 async function handleCastCreated(data) {

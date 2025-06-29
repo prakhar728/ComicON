@@ -1,13 +1,13 @@
 import 'dotenv/config';
-import { createCoin, DeployCurrency } from '@zoralabs/coins-sdk';
+import { createCoin, DeployCurrency, validateMetadataURIContent } from '@zoralabs/coins-sdk';
 import {
     createWalletClient,
     createPublicClient,
     http,
-    privateKeyToAccount,
 } from 'viem';
 import { baseSepolia } from "viem/chains";
-import { getSecureRandomNumber } from '../utils/utils';
+import { getSecureRandomNumber } from '../utils/utils.js';
+import { privateKeyToAccount } from 'viem/accounts';
 
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY;
@@ -26,7 +26,9 @@ const walletClient = createWalletClient({
 
 
 
-export async function createZoraCoin(address, imgUrl = 'ipfs://bafybeifoawrcapnx4xdfsw6whnpmecpvel262zx3y6oxi4s46ef6z7zdyi') {
+export async function createZoraCoin(address, imgUrl = 'ipfs://bafybeigoxzqzbnxsn35vq7lls3ljxdcwjafxvbvkivprsodzrptpiguysy') {
+
+    await validateMetadataURIContent(imgUrl);
     const randomNumber = getSecureRandomNumber(10, 1000);
     const coinParams = {
         name: `ComicOn - Strip #${randomNumber}`,
@@ -35,10 +37,12 @@ export async function createZoraCoin(address, imgUrl = 'ipfs://bafybeifoawrcapnx
         payoutRecipient: address,
         platformReferrer: '0x90f6797C18dF84b5D0cFA110F57D4eCB4Afa37Ed',
         chainId: baseSepolia.id,
-        currency: DeployCurrency.ZORA,
+        currency: DeployCurrency.ETH,
     };
 
     try {
+        console.log("Creating coin");
+
         const result = await createCoin(coinParams, walletClient, publicClient, {
             gasMultiplier: 120,
         });
