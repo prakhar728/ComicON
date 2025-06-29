@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { handleWebhook } from './services/webhookHandler.js';
+import { responseSample } from './utils/sample.js';
 import cors from "cors";
 
 dotenv.config();
@@ -17,7 +18,7 @@ app.use(cors());
 // Webhook endpoint
 app.post('/webhook', async (req, res) => {
   try {
-    const sampleRequest = req.body; 
+    const sampleRequest = responseSample; 
     await handleWebhook(sampleRequest);
     res.status(200).send('Webhook received');
   } catch (err) {

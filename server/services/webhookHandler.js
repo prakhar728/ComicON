@@ -75,9 +75,9 @@ async function handleCastCreated(data) {
     const ipfsResponse = await uploadImageToIpfs(response?.data[0]?.b64_json, imgMetaData)
 
     // // if the image is generated coin it using Zora.
-    const coin = await createZoraCoin(data?.author?.custody_address, `https://gateway.lighthouse.storage/ipfs/${ipfsResponse.data.Hash}`);
+    const coin = await createZoraCoin(data?.author?.custody_address, `https://gateway.lighthouse.storage/ipfs/${ipfsResponse.data.Hash}`, version);
 
-    const castText = `Here's your fresh comic. \\n CA: ${coin.address}`;
+    const castText = `Here's your fresh comic. \nCA: ${coin.address}`;
     const embeds = [
         {
             url: `https://gateway.lighthouse.storage/ipfs/${ipfsResponse.imgCID}`,

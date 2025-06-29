@@ -13,7 +13,7 @@ export async function uploadImageToIpfs(base64Image, metadata) {
     fs.writeFileSync(tempFilePath, imageBuffer);
 
     const uploadedImageToIpfs = await uploadFile(tempFilePath);
-    m["image"] =  `ipfs://${uploadedImageToIpfs.data.Hash}`
+    m["image"] =  `https://gateway.lighthouse.storage/ipfs/${uploadedImageToIpfs.data.Hash}`
 
     const uploadedUri = await uploadText(JSON.stringify(m))
     
