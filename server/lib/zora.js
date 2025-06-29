@@ -6,7 +6,6 @@ import {
     http,
 } from 'viem';
 import { baseSepolia } from "viem/chains";
-import { getSecureRandomNumber } from '../utils/utils.js';
 import { privateKeyToAccount } from 'viem/accounts';
 
 
@@ -26,13 +25,12 @@ const walletClient = createWalletClient({
 
 
 
-export async function createZoraCoin(address, imgUrl = 'ipfs://bafybeigoxzqzbnxsn35vq7lls3ljxdcwjafxvbvkivprsodzrptpiguysy') {
+export async function createZoraCoin(address, imgUrl = 'ipfs://bafybeigoxzqzbnxsn35vq7lls3ljxdcwjafxvbvkivprsodzrptpiguysy', randomNumber) {
 
     await validateMetadataURIContent(imgUrl);
-    const randomNumber = getSecureRandomNumber(10, 1000);
     const coinParams = {
         name: `ComicOn - Strip #${randomNumber}`,
-        symbol: `CS${randomNumber}`,
+        symbol: `CS#${randomNumber}`,
         uri: imgUrl,
         payoutRecipient: address,
         platformReferrer: '0x90f6797C18dF84b5D0cFA110F57D4eCB4Afa37Ed',

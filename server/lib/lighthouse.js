@@ -7,3 +7,11 @@ export const uploadText = async (text) => {
 
     return response;
 }
+
+export const uploadFile = async (filePath) => {
+    const uploadResponse = await lighthouse.upload(
+        filePath, apiKey
+    )
+
+    return uploadResponse
+}

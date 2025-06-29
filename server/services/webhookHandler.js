@@ -1,5 +1,11 @@
-import { fetchCast } from '../lib/neynar.js';
+import { validateMetadataURIContent } from '@zoralabs/coins-sdk';
+import { fetchCast, replyToCast } from '../lib/neynar.js';
 import { createZoraCoin } from '../lib/zora.js';
+import { getSecureRandomNumber } from '../utils/utils.js';
+import { generateComicImage } from './imageGen.js';
+import { uploadImageToIpfs } from './imageUpload.js';
+
+const signerUuid = process.env.APPROVED_UUID;
 
 export async function handleWebhook(event) {
     if (!event || typeof event !== 'object') {
@@ -8,7 +14,6 @@ export async function handleWebhook(event) {
 
     const { type, data } = event;
 
-    console.log(`📩 Received event type: ${type}`);
 
     switch (type) {
         case 'cast.created':
@@ -22,12 +27,19 @@ export async function handleWebhook(event) {
 }
 
 async function handleCastCreated(data) {
-    const author = data?.author?.username || 'unknown';
-    const text = data?.text || '';
-    console.log(`📝 New cast by @${author}: "${text}"`);
+    const cast1 = {
+        text: "",
+        pfp: ""
+    };
+
+    const cast2 = {
+        text: "",
+        pfp: ""
+    };
+
 
     if (!data?.parent_hash) {
-        console.log("Found a direct mention. ");
+        console.log("Found a direct mention");
         return;
     }
 
@@ -39,21 +51,38 @@ async function handleCastCreated(data) {
 
     const twoCastUp = await fetchCast(oneCastUp?.cast.parent_hash);
 
-    const text1 = oneCastUp?.cast?.text;
-    const text2 = twoCastUp?.cast?.text;
+    cast1.text = oneCastUp?.cast?.text;
+    cast1.pfp = oneCastUp?.cast?.author?.pfp_url;
 
-    console.log("Text1 is ", text1);
-    console.log("Text2 is", text2);
+    cast2.text = twoCastUp?.cast?.text;
+    cast2.pfp = twoCastUp?.cast?.author?.pfp_url;
+
 
     // generate the image.
-    //   const img = await generateImage(text1, text2);
-    const img = "";
+    const response = await generateComicImage(cast2, cast1);
 
+    const version = getSecureRandomNumber(10, 1000);
 
-    // if the image is generated coin it using Zora.
-    const coin = await createZoraCoin(data?.author?.custody_address);
+    const imgMetaData = {
+        "name": `ComicOn - Strip #${version}`,
+        "description": "Generated using ComicOn! Captures your conversation",
+        "image": "",
+        "properties": {
+            "category": "social"
+        }
+    }
 
-    console.log(coin);
+    const ipfsResponse = await uploadImageToIpfs(response?.data[0]?.b64_json, imgMetaData)
 
+    // // if the image is generated coin it using Zora.
+    const coin = await createZoraCoin(data?.author?.custody_address, `https://gateway.lighthouse.storage/ipfs/${ipfsResponse.data.Hash}`);
+
+    const castText = `Here's your fresh comic. \\n CA: ${coin.address}`;
+    const embeds = [
+        {
+            url: `https://gateway.lighthouse.storage/ipfs/${ipfsResponse.imgCID}`,
+        },
+    ];
     // Send these details as reply to this cast.
+    await replyToCast(signerUuid, castText, embeds, data?.hash, data?.author?.fid)
 }

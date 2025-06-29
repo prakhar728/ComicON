@@ -28,8 +28,6 @@ export async function fetchCast(hash) {
       type: CastParamType.Hash
     });
     
-    console.log(cast);
-    
     return cast;
   } catch (error) {
     console.error("Error publishing reply:", error);
@@ -46,19 +44,18 @@ export async function fetchCast(hash) {
  * @param {number} parentAuthorFid - FID of the original cast author
  * @returns {Promise} - The published cast response
  */
-export async function replyToCast(signerUuid, replyText, parentCastHash, parentAuthorFid) {
+export async function replyToCast(signerUuid, replyText, embdeds, parentCastHash, parentAuthorFid) {
   try {
     const response = await client.publishCast({
       signerUuid: signerUuid,
       text: replyText,
+      embeds: embdeds,
       parent: parentCastHash,           // The cast hash you're replying to
       parentAuthorFid: parentAuthorFid // FID of the original cast author
     });
 
     console.log("Reply published successfully!");
     console.log("Cast hash:", response.cast.hash);
-    console.log("Author:", response.cast.author.username);
-    console.log("Text:", response.cast.text);
     
     return response;
   } catch (error) {
