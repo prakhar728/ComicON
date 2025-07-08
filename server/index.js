@@ -33,9 +33,9 @@ app.post('/webhook', async (req, res) => {
   try {
     // const sampleRequest = responseSample; 
     // await handleWebhook(sampleRequest);
-    console.log("Request received", req);
+    console.log("Request received", req.body);
     
-    await handleWebhook(req);
+    await handleWebhook(req.body);
     res.status(200).send('Webhook received');
   } catch (err) {
     console.error('❌ Webhook error:', err);
