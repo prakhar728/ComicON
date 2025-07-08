@@ -1,26 +1,41 @@
 export async function textToText(messageText, responseText, messagePfpDesc, responsePfpDesc) {
   try {
-    const prompt = `You are a visual storyteller AI that turns a Tweet + Reply conversation into a 2-panel comic strip prompt for image generation.
+//     const prompt = `You are a visual storyteller AI that turns a Tweet + Reply conversation into a 2-panel comic strip prompt for image generation.
 
-Input:
-- Tweet: "${messageText}"
-- Reply: "${responseText}"
-- Character 1 description (from profile picture): ${messagePfpDesc}
-- Character 2 description (from profile picture): ${responsePfpDesc}
+// Input:
+// - Tweet: "${messageText}"
+// - Reply: "${responseText}"
+// - Character 1 description (from profile picture): ${messagePfpDesc}
+// - Character 2 description (from profile picture): ${responsePfpDesc}
 
-Instructions:
-- Break it into 2 comic panels.
-- Panel 1: Show Character 1 delivering the exact text of "${messageText}", expressing an emotion appropriate to what they're saying. Use ${messagePfpDesc} for appearance.
-- Panel 2: Show Character 2 replying with the exact text of "${responseText}", reacting with a suitable emotion. Use ${responsePfpDesc} for appearance.
-- Characters must match their descriptions exactly.
-- Use a colorful cartoon style with thick black outlines, natural hands and faces.
-- Include white speech bubbles with clean, readable comic-style font containing the exact quoted text (no changes, no gibberish, no text errors).
-- Describe only background details if they are crucial to understanding the scene.
-- Layout should be clear and comic-like.
+// Instructions:
+// - Break it into 2 comic panels.
+// - Panel 1: Show Character 1 delivering the exact text of "${messageText}", expressing an emotion appropriate to what they're saying. Use ${messagePfpDesc} for appearance.
+// - Panel 2: Show Character 2 replying with the exact text of "${responseText}", reacting with a suitable emotion. Use ${responsePfpDesc} for appearance.
+// - Characters must match their descriptions exactly.
+// - Use a colorful cartoon style with thick black outlines, natural hands and faces.
+// - Include white speech bubbles with clean, readable comic-style font containing the exact quoted text (no changes, no gibberish, no text errors).
+// - Describe only background details if they are crucial to understanding the scene.
+// - Layout should be clear and comic-like.
 
-Return only the final prompt as an instruction for image generation:
-"Comic strip with 2 panels. Panel 1 shows Character 1 as described, expressing their message: '${messageText}'. Panel 2 shows Character 2 as described, responding with: '${responseText}'. Characters must match their descriptions exactly. Use a colorful cartoon style with thick black outlines, natural hands and faces, and white speech bubbles containing the exact quoted text. No gibberish. No text errors. Layout should be clear and comic-like."`;
+// Return only the final prompt as an instruction for image generation:
+// "Comic strip with 2 panels. Panel 1 shows Character 1 as described, expressing their message: '${messageText}'. Panel 2 shows Character 2 as described, responding with: '${responseText}'. Characters must match their descriptions exactly. Use a colorful cartoon style with thick black outlines, natural hands and faces, and white speech bubbles containing the exact quoted text. No gibberish. No text errors. Layout should be clear and comic-like."`;
 
+const prompt = `Write a clean, natural language image generation prompt for a 2-panel comic strip in a vibrant cartoon style. The comic is based on a Tweet and its Reply. Use the following details:
+
+                  The original Tweet: "${messageText}"
+
+                  The reply: "${responseText}"
+
+                  Character 1 (who wrote the Tweet) should appear as: ${messagePfpDesc}
+
+                  Character 2 (who replied) should appear as: ${responsePfpDesc}
+
+                  Describe the comic in two panels. In Panel 1, show Character 1 saying the exact Tweet in a white speech bubble, with a matching facial expression and pose. In Panel 2, show Character 2 saying the exact Reply, again in a speech bubble. Make sure the style is playful, colorful, and cartoonish with bold black outlines. Speech bubbles must contain the exact quoted text. The layout should be clean, readable, and expressive. Include only necessary background elements that support the scene. Avoid gibberish or any errors in the speech bubbles.
+
+                  Return ONLY the final prompt as an instruction for image generation:
+                  "Create a comic strip with 2 side-by-side panels. The complete image must fit within a 1024×1024 canvas........."
+`
     const payload = {
       "messages": [
         {
