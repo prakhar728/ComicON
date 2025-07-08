@@ -15,11 +15,26 @@ app.use(express.json()); // Parse JSON bodies
 // CORS
 app.use(cors());
 
+app.get('/health', async (req, res) => {
+  try {
+    // const sampleRequest = responseSample; 
+    // await handleWebhook(sampleRequest);
+    console.log("Request received health");
+    
+    res.status(200).send('Request up received');
+  } catch (err) {
+    console.error('❌ Webhook error:', err);
+    res.status(400).send('Invalid request');
+  }
+});
+
 // Webhook endpoint
 app.post('/webhook', async (req, res) => {
   try {
     // const sampleRequest = responseSample; 
     // await handleWebhook(sampleRequest);
+    console.log("Request received", req);
+    
     await handleWebhook(req);
     res.status(200).send('Webhook received');
   } catch (err) {

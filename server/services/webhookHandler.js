@@ -57,7 +57,8 @@ async function handleCastCreated(data) {
     cast2.text = twoCastUp?.cast?.text;
     cast2.pfp = twoCastUp?.cast?.author?.pfp_url;
 
-
+    console.log("Generating the image");
+        
     // generate the image.
     const response = await generateComicImage(cast2, cast1);
 
@@ -71,9 +72,11 @@ async function handleCastCreated(data) {
             "category": "social"
         }
     }
-
+    
     const ipfsResponse = await uploadImageToIpfs(response?.data[0]?.b64_json, imgMetaData)
 
+    console.log("Creating coin");
+    
     // // if the image is generated coin it using Zora.
     const coin = await createZoraCoin(data?.author?.custody_address, `https://gateway.lighthouse.storage/ipfs/${ipfsResponse.data.Hash}`, version);
 
