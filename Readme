@@ -1,9 +1,58 @@
-# ComicOn
-For testing run 
 
-```
-curl -X POST http://localhost:3000/webhook \
-  -H "Content-Type: application/json" \
-  -d ''
+# 🦸‍♂️ ComicOn
 
-``` from your bash and it would reply to https://farcaster.xyz/par-t/0x60677789 
+**ComicOn** is a Farcaster-native bot that turns real conversations into mintable comic strips. Just tag `@ComicOn` in any thread, and we’ll instantly turn the last two messages into a comic — coined on Zora, and buyable right from your feed.
+
+## ✨ How It Works
+
+1. **Tag the Bot**: Mention `@ComicOn` in a Farcaster conversation.
+2. **We Listen**: Using Neynar, we fetch the last two messages in the thread.
+3. **Comicify**: Those messages get turned into a funny, expressive comic script.
+4. **Mint it on Zora**: We generate the comic, coin it using the Zora SDK.
+5. **Post Instantly**: The comic is posted with an embedded with it's CA.
+6. **Buy Instantly**: You can buy using Uniswap v4 / the Zora Page / or using Clankr and Bankr.
+
+
+## 🎯 Why ComicOn?
+
+Social media is full of magic moments — jokes, debates, and banter. We capture that *in the moment* and let you own it forever.
+
+- 🧠 **Frictionless**: Just tag — no setup, no app, no wallet dancing.
+- 🎨 **Memetic**: Comics are visual, emotional, and highly shareable.
+- 💸 **Onchain-native**: Every post is an NFT. Mintable. Tradeable. Ownable.
+- 💰 **Aligned Incentives**: We earn through Zora referral fees, not through user extraction.
+
+## 💼 Business Model
+
+Every time someone mints a comic, we earn a Zora referral fee. As ComicOn moments spread and go viral, we scale with them.
+
+## 🤝 Built With
+
+- **Farcaster + Neynar API** – For social graph and post reading
+- **Zora SDK** – Mint and coin NFTs onchain
+- **Clankr / Bankr** – Simple, embedded mint UX in social feeds
+- **TypeScript, Node.js** – Backend & bot logic
+
+## 🛠️ Future Plans
+
+- Revenue share with conversation participants
+- Farcaster Frames for caption voting or remixing
+- "Comic of the Day" leaderboard
+- Series tracking and multi-panel stories
+
+## 📸 Example
+
+> Conversation:
+> - User1: "Why did the smart contract break up with the front-end?"
+> - User2: "It needed more space!"
+
+ComicOn generates and mints this as a 1-of-1 collectible comic.
+
+## 📬 Get In Touch
+
+Want to collab, suggest a feature, or co-create?
+DM us on Farcaster: `@ComicOn`
+
+---
+
+ComicOn — *Moments into Memes. Instantly Owned.*
