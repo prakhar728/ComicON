@@ -18,8 +18,9 @@ app.use(cors());
 // Webhook endpoint
 app.post('/webhook', async (req, res) => {
   try {
-    const sampleRequest = responseSample; 
-    await handleWebhook(sampleRequest);
+    // const sampleRequest = responseSample; 
+    // await handleWebhook(sampleRequest);
+    await handleWebhook(req);
     res.status(200).send('Webhook received');
   } catch (err) {
     console.error('❌ Webhook error:', err);
